@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getOperarios, getOperarioById } from '../controllers/operarioController.js';
+import { Operarios, OperarioId } from '../controllers/operarioController.js';
 
 const router = Router();
 
-router.get('/', getOperarios);
-router.get('/:id', getOperarioById);
+router.get('/listaoperarios', Operarios);
+router.get('/operario', OperarioId);
 
 export default router;

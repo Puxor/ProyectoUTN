@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getAdministrativos, getAdministrativoById } from '../controllers/administrativoController.js';
+import { Administrativos, AdministrativoId } from '../controllers/administrativoController.js';
 
 const router = Router();
 
-router.get('/', getAdministrativos);
-router.get('/:id', getAdministrativoById);
+router.get('/lista-admins', Administrativos);
+router.get('/administrativo', AdministrativoId);
 
 export default router;

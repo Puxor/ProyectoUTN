@@ -1,9 +1,9 @@
 import express from 'express';
-import * as pisoController from '../controllers/pisoController.js'; 
+import { Pisos, PisoId} from '../controllers/pisoController.js'; 
 
 const router = express.Router();
 
-router.get('/', pisoController.getPisos); 
-router.get('/:id', pisoController.getPisoById);
+router.get('/lista-pisos', Pisos); 
+router.get('/piso', PisoId);
 
 export default router; 

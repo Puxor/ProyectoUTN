@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getUbicacionesActivos, getUbicacionActivoById } from '../controllers/ubicacionActivoController.js';
+import { UbicacionesActivos, UbicacionActivoId } from '../controllers/ubicacionActivoController.js';
 
 const router = Router();
 
-router.get('/', getUbicacionesActivos);
-router.get('/:id', getUbicacionActivoById);
+router.get('/lista-ubiactivos', UbicacionesActivos);
+router.get('/ubiactivo', UbicacionActivoId);
 
 export default router;

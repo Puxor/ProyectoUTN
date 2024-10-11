@@ -1,6 +1,6 @@
 import pool from '../db.js';
 
-export const getOperarios = async (req, res) => {
+export const Operarios = async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM Operario');
     res.json(rows);
@@ -9,7 +9,7 @@ export const getOperarios = async (req, res) => {
   }
 };
 
-export const getOperarioById = async (req, res) => {
+export const OperarioId = async (req, res) => {
   const { id } = req.params;
   try {
     const [rows] = await pool.query('SELECT * FROM Operario WHERE id_operario = ?', [id]);

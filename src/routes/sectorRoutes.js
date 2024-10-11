@@ -1,9 +1,9 @@
 import express from 'express';
-import * as sectorController from '../controllers/sectorController.js'; 
+import {SectorId, Sectores} from '../controllers/sectorController.js'; 
 
 const router = express.Router();
 
-router.get('/', sectorController.getSectores); 
-router.get('/:id', sectorController.getSectorById);
+router.get('/sectores', Sectores); 
+router.get('/sector', SectorId);
 
 export default router; 

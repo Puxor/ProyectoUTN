@@ -22,3 +22,53 @@ export const EdificioId = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el edificio' });
   }
 };
+
+export const createEdificio = async (req, res) => {
+  const { nombre, direccion, descripcion } = req.body; // Ajusta según los campos de tu tabla.
+  try {
+    const [result] = await pool.query(
+      'INSERT INTO Edificio (nombre, direccion, descripcion) VALUES (?, ?, ?)',
+      [nombre, direccion, descripcion]
+    );
+    res.status(201).json({ message: 'Edificio creado', id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear el edificio' });
+  }
+};
+
+export const updateEdificioById = async (req, res) => {
+  const { id } = req.params;
+  const { nombre, direccion, descripcion } = req.body; // Ajusta según tu tabla.
+  try {
+    const [result] = await pool.query(
+      'UPDATE Edificio SET nombre = ?, direccion = ?, descripcion = ? WHERE id = ?',
+      [nombre, direccion, descripcion, id]
+    );
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Edificio no encontrado' });
+    }
+    res.json({ message: 'Edificio actualizado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar el edificio' });
+  }
+};
+
+
+export const deleteEdificioById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await pool.query('DELETE FROM Edificio WHERE id = ?', [id]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Edificio no encontrado' });
+    }
+    res.json({ message: 'Edificio eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar el edificio' });
+  }
+};
+
+
+
+
+
+

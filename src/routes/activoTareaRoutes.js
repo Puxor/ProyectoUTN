@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import { ActivoTareas, ActivoTareaId } from '../controllers/activoTareaController.js';
+import { ActivoTareas, ActivoTareaId, deleteActivoTareaById, createActivoTarea, updateActivoTareaById } from '../controllers/activoTareaController.js';
 
 const router = Router();
 
 router.get('/activoTareas', ActivoTareas);
-router.get('/activoTareas/:id_activo/:id_tarea', ActivoTareaId);
+router.get('/activoTareas/activo/tarea', ActivoTareaId);
+router.delete('/activoTarea', deleteActivoTareaById);
+router.post('/activoTarea', createActivoTarea);
+router.put('/activoTarea', updateActivoTareaById);
 
 export default router;

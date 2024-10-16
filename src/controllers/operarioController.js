@@ -22,3 +22,47 @@ export const OperarioId = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el operario' });
   }
 };
+
+
+export const createOperario = async (req, res) => {
+  const { nombre, apellido, telefono } = req.body;
+  try {
+    const [result] = await pool.query(
+      'INSERT INTO Operario (nombre, apellido, telefono) VALUES (?, ?, ?)',
+      [nombre, apellido, telefono]
+    );
+    res.status(201).json({ message: 'Operario creado', id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear el operario' });
+  }
+};
+
+export const updateOperarioById = async (req, res) => {
+  const { id } = req.params;
+  const { nombre, apellido, telefono } = req.body;
+  try {
+    const [result] = await pool.query(
+      'UPDATE Operario SET nombre = ?, apellido = ?, telefono = ? WHERE id = ?',
+      [nombre, apellido, telefono, id]
+    );
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Operario no encontrado' });
+    }
+    res.json({ message: 'Operario actualizado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar el operario' });
+  }
+};
+
+export const deleteOperarioById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await pool.query('DELETE FROM Operario WHERE id = ?', [id]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Operario no encontrado' });
+    }
+    res.json({ message: 'Operario eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar el operario' });
+  }
+};

@@ -23,7 +23,6 @@ export const UbicacionActivoId = async (req, res) => {
   }
 };
 
-import pool from '../db.js';
 
 export const createUbicacionActivo = async (req, res) => {
   const { activo_id, sector_id } = req.body;

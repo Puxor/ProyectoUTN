@@ -1,7 +1,6 @@
 import pool from '../db.js';
 
 
-
 export const TareaId = async (req, res) => {
   const { id } = req.params;
   try {

@@ -1,4 +1,6 @@
 import express from 'express';
+import { ensureToken, verifyToken } from './middleware/tokenMiddleware.js';
+import cookieParser from 'cookie-parser';
 import edificioRoutes from './routes/edificioRoutes.js'; 
 import pisoRoutes from './routes/pisoRoutes.js';
 import sectorRoutes from './routes/sectorRoutes.js';
@@ -11,8 +13,10 @@ import activoTareaRoutes from './routes/activoTareaRoutes.js';
 
 
 const app = express();
-
+app.use (express.urlencoded({extended:false}));
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.use('/api', edificioRoutes);
 app.use('/api', pisoRoutes);
@@ -23,7 +27,7 @@ app.use('/api', administrativoRoutes);
 app.use('/api', tareaRoutes);
 app.use('/api', activoRoutes);
 app.use('/api', activoTareaRoutes);
-
+app.get('/api/protected', ensureToken, verifyToken);
 
 app.use((req, res, next) => {
     res.status(404).json({

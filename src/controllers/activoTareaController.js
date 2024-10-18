@@ -1,6 +1,15 @@
 import pool from '../db.js';
 
 
+export const ActivoTareas = async (req, res) => {
+try {
+  const [rows] = await pool.query('SELECT * FROM Activo_Tarea');
+  res.json(rows);
+} catch (err) {
+  res.status(500).json({ error: 'Error al obtener las relaciones Activo-Tarea' });
+}
+};
+
 export const ActivoTareaId = async (req, res) => {
   const { id_activo, id_tarea } = req.params;
   try {

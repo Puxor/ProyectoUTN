@@ -10,6 +10,7 @@ import administrativoRoutes from './routes/administrativoRoutes.js';
 import tareaRoutes from './routes/tareaRoutes.js';
 import activoRoutes from './routes/activoRoutes.js';
 import activoTareaRoutes from './routes/activoTareaRoutes.js';
+import ordenTrabajoRoutes from './routes/ordenTrabajoRoutes.js';
 
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api', administrativoRoutes);
 app.use('/api', tareaRoutes);
 app.use('/api', activoRoutes);
 app.use('/api', activoTareaRoutes);
+app.use('/api', ordenTrabajoRoutes);
 app.get('/api/protected', ensureToken, verifyToken);
 
 app.use((req, res, next) => {

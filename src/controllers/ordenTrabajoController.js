@@ -118,3 +118,48 @@ export const deleteOrdenTrabajo = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar la orden de trabajo' });
   }
 };
+
+
+
+export const getOrdenesTrabajoDetalladas = async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        ot.idorden_trabajo AS orden_trabajo_id, 
+        at.idactivo_tarea AS activo_tarea_id,
+        a.tipo AS activo_tipo,
+        a.tag_diminutivo AS activo_tag,
+        t.tarea AS tarea_descripcion,
+        e.nombre AS edificio_nombre,
+        p.piso AS piso_nombre,
+        u.nombre AS nombre_usuario,
+        s.sector AS sector_nombre,
+        ua.ubicacion AS ubicacion_nombre,
+        nt.numero_tipo AS numero_tipo
+      FROM 
+        orden_trabajo ot
+      JOIN 
+        activo_tarea at ON ot.id_activo_tarea = at.idactivo_tarea
+      JOIN 
+        activo a ON at.id_activo = a.id_activo
+      JOIN 
+        tarea t ON at.id_tarea = t.id_tarea
+      JOIN 
+        edificio e ON ot.id_edificio = e.id_edificio
+      JOIN 
+        piso p ON ot.id_piso = p.id_piso
+      JOIN
+        usuario u ON ot.id_usuario = u.id_usuario
+      JOIN 
+        sector s ON ot.id_sector = s.id_sector
+      JOIN 
+        ubicacion_activo ua ON ot.id_ubicacion_activo = ua.idubicacion_activo
+      JOIN 
+        numero_tipo nt ON ot.id_numero_tipo = nt.id_numero_tipo;
+    `);
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las órdenes de trabajo detalladas' });
+  }
+};

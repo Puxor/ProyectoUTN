@@ -25,11 +25,11 @@ export const OperarioId = async (req, res) => {
 
 
 export const createOperario = async (req, res) => {
-  const { nombre, apellido, telefono } = req.body;
+  const { nombre, area, email, contraseña} = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Operario (nombre, apellido, telefono) VALUES (?, ?, ?)',
-      [nombre, apellido, telefono]
+      'INSERT INTO Operario (nombre, area, email,contraseña) VALUES (?, ?, ?, ?)',
+      [nombre, area , email, contraseña ]
     );
     res.status(201).json({ message: 'Operario creado', id: result.insertId });
   } catch (error) {
@@ -39,11 +39,11 @@ export const createOperario = async (req, res) => {
 
 export const updateOperarioById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, telefono } = req.body;
+  const { nombre, area, email, contarseña } = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Operario SET nombre = ?, apellido = ?, telefono = ? WHERE id = ?',
-      [nombre, apellido, telefono, id]
+      'UPDATE Operario SET nombre = ?, area = ?, email = ?, contraseña = ? WHERE id = ?',
+      [nombre, area, email, contarseña, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Operario no encontrado' });

@@ -11,6 +11,7 @@ import tareaRoutes from './routes/tareaRoutes.js';
 import activoRoutes from './routes/activoRoutes.js';
 import activoTareaRoutes from './routes/activoTareaRoutes.js';
 import ordenTrabajoRoutes from './routes/ordenTrabajoRoutes.js';
+import usuarioRoutes from './routes/usuarioRoutes.js';
 
 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api', sectorRoutes);
 app.use('/api', ubicacionActivoRoutes);
 app.use('/api', operarioRoutes);
 app.use('/api', administrativoRoutes);
+app.use('/api', usuarioRoutes);
 app.use('/api', tareaRoutes);
 app.use('/api', activoRoutes);
 app.use('/api', activoTareaRoutes);

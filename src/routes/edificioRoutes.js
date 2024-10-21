@@ -3,7 +3,7 @@ import {EdificioId, Edificios, deleteEdificioById, createEdificio, updateEdifici
 
 const router = express.Router();
 
-router.get('/listo-ediicios', Edificios); 
+router.get('/lista-edificios', Edificios); 
 router.get('/edificio', EdificioId);
 router.delete('/edificio', deleteEdificioById);
 router.post('/edificio', createEdificio);

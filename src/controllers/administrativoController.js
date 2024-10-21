@@ -24,11 +24,11 @@ export const AdministrativoId = async (req, res) => {
 };
 
 export const createAdministrativo = async (req, res) => {
-  const { nombre, apellido, cargo } = req.body;
+  const { nombre, apellido, email } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Administrativo (nombre, apellido, cargo) VALUES (?, ?, ?)',
-      [nombre, apellido, cargo]
+      'INSERT INTO Administrativo (nombre, apellido, email) VALUES (?, ?, ?)',
+      [nombre, apellido, email]
     );
     res.status(201).json({ message: 'Administrativo creado', id: result.insertId });
   } catch (error) {
@@ -38,11 +38,11 @@ export const createAdministrativo = async (req, res) => {
 
 export const updateAdministrativoById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, cargo } = req.body;
+  const { nombre, apellido, email } = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Administrativo SET nombre = ?, apellido = ?, cargo = ? WHERE id = ?',
-      [nombre, apellido, cargo, id]
+      'UPDATE Administrativo SET nombre = ?, apellido = ?, email = ? WHERE id = ?',
+      [nombre, apellido, email, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Administrativo no encontrado' });

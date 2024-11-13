@@ -25,10 +25,10 @@ export const UbicacionActivoId = async (req, res) => {
 
 
 export const createUbicacionActivo = async (req, res) => {
-  const { activo_id, sector_id } = req.body;
+  const { ubicacion, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Ubicacion_Activo (activo_id, sector_id) VALUES (?, ?)',
+      'INSERT INTO Ubicacion_Activo (ubicacion, label_tag) VALUES (?, ?)',
       [activo_id, sector_id]
     );
     res.status(201).json({ message: 'Ubicación de activo creada', id: result.insertId });
@@ -39,11 +39,11 @@ export const createUbicacionActivo = async (req, res) => {
 
 export const updateUbicacionActivoById = async (req, res) => {
   const { id } = req.params;
-  const { activo_id, sector_id } = req.body;
+  const { ubicacion, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Ubicacion_Activo SET activo_id = ?, sector_id = ? WHERE id = ?',
-      [activo_id, sector_id, id]
+      'UPDATE Ubicacion_Activo SET ubicacion = ?, label_tag = ? WHERE id = ?',
+      [ubicacion, label_tag, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Ubicación no encontrada' });

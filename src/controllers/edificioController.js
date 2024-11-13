@@ -24,11 +24,11 @@ export const EdificioId = async (req, res) => {
 };
 
 export const createEdificio = async (req, res) => {
-  const { nombre, direccion, descripcion } = req.body; // Ajusta según los campos de tu tabla.
+  const { nombre, direccion, label_tag } = req.body; 
   try {
     const [result] = await pool.query(
-      'INSERT INTO Edificio (nombre, direccion, descripcion) VALUES (?, ?, ?)',
-      [nombre, direccion, descripcion]
+      'INSERT INTO Edificio (nombre, direccion, label_tag) VALUES (?, ?, ?)',
+      [nombre, direccion, label_tag]
     );
     res.status(201).json({ message: 'Edificio creado', id: result.insertId });
   } catch (error) {
@@ -38,11 +38,11 @@ export const createEdificio = async (req, res) => {
 
 export const updateEdificioById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, direccion, descripcion } = req.body; // Ajusta según tu tabla.
+  const { nombre, direccion, label_tag } = req.body; 
   try {
     const [result] = await pool.query(
-      'UPDATE Edificio SET nombre = ?, direccion = ?, descripcion = ? WHERE id = ?',
-      [nombre, direccion, descripcion, id]
+      'UPDATE Edificio SET nombre = ?, direccion = ?, label_tag = ? WHERE id = ?',
+      [nombre, direccion, label_tag, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Edificio no encontrado' });

@@ -27,8 +27,8 @@ export const createActivo = async (req, res) => {
   const { nombre, descripcion, sector_id } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Activo (nombre, descripcion, sector_id) VALUES (?, ?, ?)',
-      [nombre, descripcion, sector_id]
+      'INSERT INTO Activo (tipo, tag_diminutivo, label_tag) VALUES (?, ?, ?)',
+      [tipo, tag_diminutivo, label_tag]
     );
     res.status(201).json({ message: 'Activo creado', id: result.insertId });
   } catch (error) {
@@ -38,11 +38,11 @@ export const createActivo = async (req, res) => {
 
 export const updateActivoById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, descripcion, sector_id } = req.body;
+  const { tipo, tag_diminutivo, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Activo SET nombre = ?, descripcion = ?, sector_id = ? WHERE id = ?',
-      [nombre, descripcion, sector_id, id]
+      'UPDATE Activo SET tipo = ?, tag_diminutivo = ?, label_tag = ? WHERE id_activo = ?',
+      [tipo, tag_diminutivo, label_tag, id_activo]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Activo no encontrado' });
@@ -56,7 +56,7 @@ export const updateActivoById = async (req, res) => {
 export const deleteActivoById = async (req, res) => {
   const { id } = req.params;
   try {
-    const [result] = await pool.query('DELETE FROM Activo WHERE id = ?', [id]);
+    const [result] = await pool.query('DELETE FROM Activo WHERE id_activo = ?', [id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Activo no encontrado' });
     }

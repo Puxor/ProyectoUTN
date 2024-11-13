@@ -39,11 +39,11 @@ export const createOperario = async (req, res) => {
 
 export const updateOperarioById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, area, email, contarseña } = req.body;
+  const { nombre, area, email, contraseña } = req.body;
   try {
     const [result] = await pool.query(
       'UPDATE Operario SET nombre = ?, area = ?, email = ?, contraseña = ? WHERE id = ?',
-      [nombre, area, email, contarseña, id]
+      [nombre, area, email, contraseña, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Operario no encontrado' });

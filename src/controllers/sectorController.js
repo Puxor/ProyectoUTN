@@ -24,11 +24,11 @@ export const SectorId = async (req, res) => {
 };
 
 export const createSector = async (req, res) => {
-  const { nombre, piso_id } = req.body;
+  const { sector, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Sector (nombre, piso_id) VALUES (?, ?)',
-      [nombre, piso_id]
+      'INSERT INTO Sector (sector, label_tag) VALUES (?, ?)',
+      [sector, label_tag]
     );
     res.status(201).json({ message: 'Sector creado', id: result.insertId });
   } catch (error) {
@@ -38,11 +38,11 @@ export const createSector = async (req, res) => {
 
 export const updateSectorById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, piso_id } = req.body;
+  const { sector, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Sector SET nombre = ?, piso_id = ? WHERE id = ?',
-      [nombre, piso_id, id]
+      'UPDATE Sector SET sector = ?, label_tag = ? WHERE id = ?',
+      [sector, label_tag, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Sector no encontrado' });

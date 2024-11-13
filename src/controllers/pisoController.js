@@ -24,11 +24,11 @@ export const PisoId = async (req, res) => {
 };
 
 export const createPiso = async (req, res) => {
-  const { numero, descripcion, edificio_id } = req.body;
+  const { piso, label_tag } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Piso (numero, descripcion, edificio_id) VALUES (?, ?, ?)',
-      [numero, descripcion, edificio_id]
+      'INSERT INTO Piso (piso, label_tag) VALUES (?, ?)',
+      [piso, label_tag]
     );
     res.status(201).json({ message: 'Piso creado', id: result.insertId });
   } catch (error) {
@@ -38,11 +38,11 @@ export const createPiso = async (req, res) => {
 
 export const updatePisoById = async (req, res) => {
   const { id } = req.params;
-  const { numero, descripcion, edificio_id } = req.body;
+  const { piso, label_tag} = req.body;
   try {
     const [result] = await pool.query(
-      'UPDATE Piso SET numero = ?, descripcion = ?, edificio_id = ? WHERE id = ?',
-      [numero, descripcion, edificio_id, id]
+      'UPDATE Piso SET piso = ?, label_tag = ? WHERE id = ?',
+      [piso,label_tag, id]
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Piso no encontrado' });
